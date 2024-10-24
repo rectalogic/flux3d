@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flux3d</title>
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.min.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script src="generate.js" type="module"></script>
+    <style>
+    #loadingOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      color: white;
+    }
+
+    .loadingSpinner {
+      border: 8px solid rgba(96, 96, 96, 0.5);
+      border-radius: 50%;
+      border-top: 8px solid #ffffff;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    .loadingText {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    </style>
+</head>
+<body>
+    <div>
+        Enter a prompt to generate an image of an object, click <b>Generate Image</b>,
+        then once you have a suitable image click <b>Render 3D</b> to view a 3D model of the object.
+    </div>
+    <input type="text" id="promptText" placeholder="Type your image prompt here, include 'with black background'...">
+    <button id="generateImage">Generate Image</button>
+    <img width="512" height="512" id="generatedImage" crossorigin decoding="async">
+    <button id="generateModel">Render 3D</button>
+    <canvas width="512" height="512" id="generatedModel"></canvas>
+    <div id="loadingOverlay">
+        <div class="loadingSpinner"></div>
+        <div class="loadingText" id="loadingText">Processing...</div>
+    </div>
+</body>
+</html>
